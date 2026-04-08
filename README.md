@@ -25,6 +25,28 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+## Translation API (Gemini + Ollama)
+
+This project exposes story translation APIs backed by Google Gemini and Ollama.
+
+Required environment variables:
+
+```bash
+GEMINI_API_KEY=your_api_key
+GEMINI_MODEL=gemini-2.0-flash
+GEMINI_BASE_URL=https://generativelanguage.googleapis.com/v1beta
+OLLAMA_BASE_URL=http://localhost:11434
+OLLAMA_MODEL=llama3.2
+PORT=3000
+```
+
+Main endpoints:
+
+- `POST /api/translate` - translate once and return full output. Supports `provider: gemini | ollama`.
+- `POST /api/translate/stream` - translate with SSE streaming chunks. Supports `provider: gemini | ollama`.
+- `GET /api/models` - list available models from Gemini and Ollama. Each item includes `provider` and `type`.
+- `GET /api/docs` - Swagger UI.
+
 ## Project setup
 
 ```bash

@@ -1,6 +1,7 @@
 import { Type } from 'class-transformer';
-import { IsNotEmpty, IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { TranslationProvider } from './translate-provider.enum';
 
 export class TranslateRequestDto {
   @ApiProperty({ example: 'The moonlight spread across the old village.' })
@@ -18,10 +19,19 @@ export class TranslateRequestDto {
   @IsString()
   targetLanguage?: string;
 
-  @ApiPropertyOptional({ example: 'qwen2.5:7b' })
+  @ApiPropertyOptional({ example: 'gemini-2.0-flash' })
   @IsOptional()
   @IsString()
   model?: string;
+
+  @ApiPropertyOptional({
+    example: TranslationProvider.GEMINI,
+    enum: TranslationProvider,
+    description: 'Translation provider. Defaults to gemini when omitted.',
+  })
+  @IsOptional()
+  @IsEnum(TranslationProvider)
+  provider?: TranslationProvider;
 
   @ApiPropertyOptional({ example: 0.2, minimum: 0, maximum: 2 })
   @IsOptional()

@@ -18,7 +18,7 @@ async function bootstrap() {
 
   const swaggerConfig = new DocumentBuilder()
     .setTitle('Translate Story API')
-    .setDescription('NestJS API for translating story content via local Ollama')
+    .setDescription('NestJS API for translating story content via Gemini and Ollama')
     .setVersion('1.0.0')
     .build();
   const swaggerDocument = SwaggerModule.createDocument(app, swaggerConfig);
@@ -26,4 +26,5 @@ async function bootstrap() {
 
   await app.listen(process.env.PORT ?? 3000);
 }
-bootstrap();
+
+void bootstrap();
