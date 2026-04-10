@@ -1,6 +1,7 @@
-import { Body, Controller, Post, Res } from '@nestjs/common';
+import { Body, Controller, Get, Post, Res } from '@nestjs/common';
 import { ApiBody, ApiOkResponse, ApiOperation, ApiProduces, ApiTags } from '@nestjs/swagger';
 import type { Response } from 'express';
+import { LanguageResponseDto } from './dto/language-response.dto';
 import { TranslateRequestDto } from './dto/translate-request.dto';
 import { TranslateResponseDto } from './dto/translate-response.dto';
 import { TranslationService } from './translation.service';
@@ -9,6 +10,13 @@ import { TranslationService } from './translation.service';
 @Controller('translate')
 export class TranslationController {
   constructor(private readonly translationService: TranslationService) {}
+
+  @Get('languages')
+  @ApiOperation({ summary: 'Get supported translation languages' })
+  @ApiOkResponse({ type: LanguageResponseDto, isArray: true })
+  getLanguages(): LanguageResponseDto[] {
+    return this.translationService.getAvailableLanguages();
+  }
 
   @Post()
   @ApiOperation({ summary: 'Translate story content using Gemini or Ollama' })

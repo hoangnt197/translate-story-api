@@ -1,4 +1,6 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { SUPPORTED_LANGUAGES } from './constants/supported-languages';
+import type { LanguageResponseDto } from './dto/language-response.dto';
 import type { TranslateRequestDto } from './dto/translate-request.dto';
 import type { TranslateResponseDto } from './dto/translate-response.dto';
 import { TranslationProvider } from './dto/translate-provider.enum';
@@ -249,5 +251,9 @@ export class TranslationService {
     } catch {
       return null;
     }
+  }
+
+  getAvailableLanguages(): LanguageResponseDto[] {
+    return SUPPORTED_LANGUAGES;
   }
 }
